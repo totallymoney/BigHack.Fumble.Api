@@ -1,4 +1,4 @@
-module BigHack.Fumble.Api.Lambda
+module BigHack.Fumble.Api.LambdaFunctions
 
 open Amazon.Lambda.Core
 open Amazon.Lambda.APIGatewayEvents
