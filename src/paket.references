@@ -1,4 +1,11 @@
 FSharp.Core
 FSharp.Data
+Amazon.Lambda.APIGatewayEvents
 Amazon.Lambda.Core
 Amazon.Lambda.Serialization.SystemTextJson
+AWSSDK.Core
+AWSSDK.DynamoDBv2
+Microsoft.FSharpLu.Json
+Newtonsoft.Json
+Serilog
+Serilog.Sinks.Console

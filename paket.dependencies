@@ -3,8 +3,15 @@ framework auto-detect
 source https://api.nuget.org/v3/index.json
 nuget FSharp.Core
 nuget FSharp.Data
+nuget Amazon.Lambda.APIGatewayEvents
 nuget Amazon.Lambda.Core
 nuget Amazon.Lambda.Serialization.SystemTextJson
+nuget AWSSDK.Core
+nuget AWSSDK.DynamoDBv2
+nuget Microsoft.FSharpLu.Json
+nuget Newtonsoft.Json
+nuget Serilog
+nuget Serilog.Sinks.Console
 
 group Tests
 

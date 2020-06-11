@@ -5,7 +5,17 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Program.fs" />
+    <Compile Include="TypeExtensions.fs" />
+    <Compile Include="Infrastructure.fs" />
+    <Compile Include="Model.fs" />
+    <Compile Include="DataAccess.fs" />
+    <Compile Include="AppContext.fs" />
+    <Compile Include="ErrorHelper.fs" />
+    <Compile Include="ResponseDto.fs" />
+    <Compile Include="Workflow.fs" />
+    <Compile Include="Config.fs" />
+    <Compile Include="LambdaUtils.fs" />
+    <Compile Include="LambdaFunctions.fs" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

@@ -8,6 +8,8 @@ paket-files/
 node_modules/
 .paket/
 .serverless/
+.idea/
 .ionide/
 package.zip
 deploy.zip
+.DS_Store

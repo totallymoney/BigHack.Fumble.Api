@@ -1,4 +1,4 @@
-service: sls-BigHack-Fumble-Api
+service: serverless-bighack-fumble-api
 
 plugins:
   - serverless-pseudo-parameters
@@ -8,11 +8,13 @@ provider:
   runtime: dotnetcore3.1
   stage: ${opt:stage, 'stage'}
   region: eu-west-1
+  profile: bighack
+  endpointType: REGIONAL
   timeout: 30
   memorySize: 256
   logRetentionInDays: 14
   versionFunctions: false
-  feature: BigHack-Fumble-Api
+  feature: bighack-fumble-api
   stackTags:
     FEATURE: ${self:provider.feature}
     ENVIRONMENT: ${self:provider.stage}
@@ -20,17 +22,45 @@ provider:
     FEATURE: ${self:provider.feature}
     ENVIRONMENT: ${self:provider.stage}
     VERSION: ${env:VERSION}
+  tables:
+    cards: bighack-fumble-api-${self:provider.stage}-cards
+
+
   environment:
     ENVIRONMENT: ${self:provider.stage}
     VERSION: ${env:VERSION}
+    DYNAMO_REGION: ${self:provider.region}
+    DYNAMO_CARDS_TABLE: ${self:provider.tables.cards}
 
 package:
   artifact: package.zip
 
 functions:
-  BigHack-Fumble-Api:
-    handler: BigHack.Fumble.Api::Program::MyEvent
-#   events: (todo: add function trigger event)
+  getCards:
+    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunction::getCards
+    events:
+      - http:
+          method: GET
+          path: "/cards"
+
+  updateCards:
+    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunction::updateCards
+    events:
+      - http:
+          method: PUT
+          path: "/cards"
 
 resources:
   Resources:
+    CardsDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.tables.cards}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: Name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: Name
+            KeyType: HASH
+
