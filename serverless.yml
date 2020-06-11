@@ -50,6 +50,7 @@ functions:
       - http:
           method: GET
           path: "/cards"
+          cors: true
 
   updateCards:
     handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunctions::updateCards
@@ -57,6 +58,7 @@ functions:
       - http:
           method: PUT
           path: "/cards"
+          cors: true
 
 resources:
   Resources:
