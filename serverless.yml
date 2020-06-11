@@ -37,14 +37,14 @@ package:
 
 functions:
   getCards:
-    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunction::getCards
+    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunctions::getCards
     events:
       - http:
           method: GET
           path: "/cards"
 
   updateCards:
-    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunction::updateCards
+    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunctions::updateCards
     events:
       - http:
           method: PUT
