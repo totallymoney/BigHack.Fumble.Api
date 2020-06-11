@@ -1,0 +1,22 @@
+{
+  "name": "BigHack.Fumble.Api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:totallymoney/BigHack.Fumble.Api.git",
+  "author": "Tristian Barrett <trbarrett@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@totallymoney/github-serverless-dotnet-artifacts": "^1.1.7",
+    "serverless": "^1.72.0",
+    "serverless-pseudo-parameters": "^2.5.0"
+  },
+  "scripts": {
+    "restore": "dotnet tool restore && dotnet paket restore",
+    "build": "dotnet build src",
+    "test": "dotnet run -p tests",
+    "publish": "gsda-publish totallymoney/BigHack.Fumble.Api",
+    "deploy": "gsda-deploy totallymoney/BigHack.Fumble.Api",
+    "pick": "gsda-pick"
+  }
+}

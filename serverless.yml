@@ -1,0 +1,36 @@
+service: sls-BigHack-Fumble-Api
+
+plugins:
+  - serverless-pseudo-parameters
+  
+provider:
+  name: aws
+  runtime: dotnetcore3.1
+  stage: ${opt:stage, 'stage'}
+  region: eu-west-1
+  timeout: 30
+  memorySize: 256
+  logRetentionInDays: 14
+  versionFunctions: false
+  feature: BigHack-Fumble-Api
+  stackTags:
+    FEATURE: ${self:provider.feature}
+    ENVIRONMENT: ${self:provider.stage}
+  tags:
+    FEATURE: ${self:provider.feature}
+    ENVIRONMENT: ${self:provider.stage}
+    VERSION: ${env:VERSION}
+  environment:
+    ENVIRONMENT: ${self:provider.stage}
+    VERSION: ${env:VERSION}
+
+package:
+  artifact: package.zip
+
+functions:
+  BigHack-Fumble-Api:
+    handler: BigHack.Fumble.Api::Program::MyEvent
+#   events: (todo: add function trigger event)
+
+resources:
+  Resources:

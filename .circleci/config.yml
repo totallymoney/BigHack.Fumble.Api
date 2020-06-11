@@ -1,0 +1,52 @@
+version: 2.1
+
+parameters:
+  version:
+    type: string
+    default: "0.0.<< pipeline.number >>"
+
+build_image: &build_image totallymoney/dotnet-builder:3.1.2
+cache_key: &cache_key cache-{{ checksum "paket.lock" }}-{{ checksum "yarn.lock" }}
+
+jobs:
+  build:
+    docker:
+      - image: *build_image
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run: yarn --frozen-lockfile
+      - run: yarn restore
+      - run: yarn build
+      - run: yarn test --fail-on-focused-tests
+      - save_cache:
+          key: *cache_key
+          paths:
+            - node_modules
+            - paket-files
+            - packages
+
+  deploy:
+    docker:
+      - image: *build_image
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run: yarn --frozen-lockfile
+      - run: yarn restore
+      - run: yarn run publish << pipeline.parameters.version >> $CIRCLE_SHA1
+      - run: yarn run deploy << pipeline.parameters.version >> stage
+
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

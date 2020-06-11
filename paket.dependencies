@@ -1,0 +1,13 @@
+framework auto-detect
+
+source https://api.nuget.org/v3/index.json
+nuget FSharp.Core
+nuget FSharp.Data
+nuget Amazon.Lambda.Core
+nuget Amazon.Lambda.Serialization.SystemTextJson
+
+group Tests
+
+  source https://api.nuget.org/v3/index.json
+  nuget FSharp.Core
+  nuget Expecto

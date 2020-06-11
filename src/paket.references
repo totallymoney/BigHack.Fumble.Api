@@ -1,0 +1,4 @@
+FSharp.Core
+FSharp.Data
+Amazon.Lambda.Core
+Amazon.Lambda.Serialization.SystemTextJson

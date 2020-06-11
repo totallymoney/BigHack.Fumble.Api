@@ -1,0 +1,13 @@
+bin/
+obj/
+build/
+deploy/
+publish/
+packages/
+paket-files/
+node_modules/
+.paket/
+.serverless/
+.ionide/
+package.zip
+deploy.zip
