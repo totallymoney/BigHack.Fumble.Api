@@ -32,6 +32,14 @@ provider:
     DYNAMO_REGION: ${self:provider.region}
     DYNAMO_CARDS_TABLE: ${self:provider.tables.cards}
 
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource:
+        - "#{CardsDynamoDBTable.Arn}"
+
+
 package:
   artifact: package.zip
 
