@@ -26,14 +26,16 @@ module ApiGatewayProxyResponse =
     let success body =
         create HttpStatusCodes.OK
                body
-               [HttpResponseHeaders.ContentType, HttpContentTypes.Json]
+               [HttpResponseHeaders.ContentType, HttpContentTypes.Json
+                HttpResponseHeaders.AccessControlAllowOrigin, "*"]
 
     let notFound = create HttpStatusCodes.NotFound null []
 
     let error errorCode body =
         create errorCode
                body
-               [HttpResponseHeaders.ContentType, HttpContentTypes.Json]
+               [HttpResponseHeaders.ContentType, HttpContentTypes.Json
+                HttpResponseHeaders.AccessControlAllowOrigin, "*"]
 
 let responseBuilder (errorDto : ErrorDto option) =
     match errorDto with
