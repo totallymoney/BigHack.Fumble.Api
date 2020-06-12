@@ -76,7 +76,7 @@ functions:
     handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunctions::scheduledAirtableUpdate
     events:
       - schedule:
-          rate: rate(1 minutes)
+          rate: rate(1 minute)
           name: "bighack-fumble-api-${self:provider.stage}-airtable-update"
           enabled: true
 
