@@ -32,5 +32,5 @@ let updateFromAirtable (gatewayRequest : APIGatewayProxyRequest)
     Ok ()
     |> handleJsonRequest lambdaContext
                          "UpdateCards"
-                         Workflow.updateFromAirtable
+                         (fun ctx () -> Workflow.updateFromAirtable ctx)
                          ResponseDto.mapEmptyResultToDto

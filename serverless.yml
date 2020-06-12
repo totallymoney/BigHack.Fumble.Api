@@ -64,6 +64,14 @@ functions:
           path: "/cards"
           cors: true
 
+  updateCardsFromAirtable:
+    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunctions::updateFromAirtable
+    events:
+      - http:
+          method: POST
+          path: "/updateFromAirtable"
+          cors: true
+
 resources:
   Resources:
     CardsDynamoDBTable:
