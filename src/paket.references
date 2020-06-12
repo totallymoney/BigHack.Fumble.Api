@@ -1,6 +1,7 @@
 FSharp.Core
 FSharp.Data
 Amazon.Lambda.APIGatewayEvents
+Amazon.Lambda.CloudWatchLogsEvents
 Amazon.Lambda.Core
 Amazon.Lambda.Serialization.SystemTextJson
 AWSSDK.Core

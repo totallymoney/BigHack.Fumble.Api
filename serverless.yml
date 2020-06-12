@@ -72,6 +72,13 @@ functions:
           path: "/updateFromAirtable"
           cors: true
 
+  scheduledAirtableUpdate:
+    handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunctions::scheduledAirtableUpdate
+    events:
+      - cloudwatchEvent:
+          name: bighack-fumble-api-${self:provider.stage}-airtable-update
+          schedule: rate(1 minutes)
+
 resources:
   Resources:
     CardsDynamoDBTable:

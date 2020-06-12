@@ -5,6 +5,7 @@ nuget FSharp.Core
 nuget FSharp.Data
 nuget Amazon.Lambda.APIGatewayEvents
 nuget Amazon.Lambda.Core
+nuget Amazon.Lambda.CloudWatchLogsEvents
 nuget Amazon.Lambda.Serialization.SystemTextJson
 nuget AWSSDK.Core
 nuget AWSSDK.DynamoDBv2
