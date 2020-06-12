@@ -10,6 +10,8 @@ type ErrorType =
     | SerializationError
     | DynamoDbDeserializationError
     | ApiRequestDeserializationError
+    | AirTableRequestError
+    | AirTableDeserializationError
 
 type ErrorDto =
     { ErrorType : ErrorType
@@ -43,4 +45,10 @@ let mapErrorDto error =
           ErrorMessage = sprintf "%s: Deserializing json: %s" msg json}
     | FumbleError.ApiRequestDeserializationError (msg, json) ->
         { ErrorType = ApiRequestDeserializationError
+          ErrorMessage = sprintf "%s: Deserializing json: %s" msg json}
+    | FumbleError.AirTableRequestError msg ->
+        { ErrorType = AirTableRequestError
+          ErrorMessage = msg }
+    | FumbleError.AirTableDeserializationError (msg, json) ->
+        { ErrorType = AirTableDeserializationError
           ErrorMessage = sprintf "%s: Deserializing json: %s" msg json}

@@ -25,3 +25,12 @@ let updateCards (gatewayRequest : APIGatewayProxyRequest)
                          "UpdateCards"
                          Workflow.updateCards
                          ResponseDto.mapEmptyResultToDto
+
+[<LambdaSerializer(typeof<DefaultLambdaJsonSerializer>)>]
+let updateFromAirtable (gatewayRequest : APIGatewayProxyRequest)
+                       (lambdaContext : ILambdaContext) =
+    Ok ()
+    |> handleJsonRequest lambdaContext
+                         "UpdateCards"
+                         Workflow.updateFromAirtable
+                         ResponseDto.mapEmptyResultToDto

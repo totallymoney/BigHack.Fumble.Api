@@ -10,12 +10,14 @@ open BigHack.Fumble.Api
 open BigHack.Fumble.Api.TypeExtensions
 open BigHack.Fumble.Api.Infrastructure
 open BigHack.Fumble.Api.DataAccess
+open BigHack.Fumble.Api.AirTable
 
 type Config =
     { Version : string
       Environment : string
       AwsRegion : RegionEndpoint
-      DynamoCardsTable : string }
+      DynamoCardsTable : string
+      AirTableToken : string }
 
 module Config =
 
@@ -26,12 +28,14 @@ module Config =
                 let! environment = Environment.tryItem "ENVIRONMENT"
                 let! awsRegion = Environment.tryItem "AWS_REGION"
                 let! dynamoCardsTable = Environment.tryItem "DYNAMO_CARDS_TABLE"
+                let! airTableToken = Environment.tryItem "AIRTABLE_TOKEN"
 
                 return
                     { Version = version
                       Environment = environment
                       AwsRegion = awsRegion |> RegionEndpoint.GetBySystemName
-                      DynamoCardsTable = dynamoCardsTable }
+                      DynamoCardsTable = dynamoCardsTable
+                      AirTableToken = airTableToken }
             }
             |> Result.mapError ConfigurationError
         with ex ->
@@ -70,7 +74,11 @@ module Config =
                     { ConnectionConfig = CloudConfig { CloudAwsConfig.Region = cfg.AwsRegion }
                       CardsTableName = cfg.DynamoCardsTable }
 
+                let airTableConfig =
+                    { Token = cfg.AirTableToken }
+
                 AppContext.configure dataAccessConfig
+                                     airTableConfig
                                      logger
                                      (fun () -> DateTimeOffset.Now)
                 |> Ok

@@ -9,6 +9,7 @@
     <Compile Include="Infrastructure.fs" />
     <Compile Include="Model.fs" />
     <Compile Include="DataAccess.fs" />
+    <Compile Include="AirTable.fs" />
     <Compile Include="AppContext.fs" />
     <Compile Include="ErrorHelper.fs" />
     <Compile Include="ResponseDto.fs" />

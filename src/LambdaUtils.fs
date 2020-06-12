@@ -50,9 +50,11 @@ let responseBuilder (errorDto : ErrorDto option) =
             ApiGatewayProxyResponse.error HttpStatusCodes.BadRequest
         | ErrorType.ConfigurationError
         | ErrorType.SerializationError
-        | ErrorType.DynamoDbDeserializationError ->
+        | ErrorType.DynamoDbDeserializationError
+        | ErrorType.AirTableDeserializationError ->
             ApiGatewayProxyResponse.error HttpStatusCodes.InternalServerError
-        | ErrorType.DataAccessError ->
+        | ErrorType.DataAccessError
+        | ErrorType.AirTableRequestError ->
             ApiGatewayProxyResponse.error HttpStatusCodes.ServiceUnavailable
 
 let jsonSetupError =

@@ -22,15 +22,32 @@ let logApiResults (logger : Serilog.ILogger)
 
 let DefaultCardsCollectionName = "Default"
 
+let getCards (ctx : AppContext) =
+    let sw = System.Diagnostics.Stopwatch.StartNew()
+    ctx.DataAccess.GetCardCollection DefaultCardsCollectionName
+    |> tee (fun x ->
+        logApiResults ctx.Logger "GetCards" sw x)
+
 let updateCards (ctx: AppContext) cards =
     let sw = System.Diagnostics.Stopwatch.StartNew()
     let model = { Name = DefaultCardsCollectionName; Cards = cards }
     ctx.DataAccess.StoreCardCollection model
     |> tee (fun x ->
-        logApiResults ctx.Logger "AddCustomerValidation" sw x)
+        logApiResults ctx.Logger "UpdateCards" sw x)
 
-let getCards (ctx : AppContext) =
+
+let updateFromAirtable (ctx: AppContext) =
     let sw = System.Diagnostics.Stopwatch.StartNew()
-    ctx.DataAccess.GetCardCollection DefaultCardsCollectionName
+
+    result {
+        let! airTableData = ctx.AirTable.GetCards ()
+        let cards =
+            airTableData.records
+            |> List.map (fun r -> { CardTitle = r.fields.CardTitle
+                                    CardContent = r.fields.CardDescription } )
+        let model = { Name = DefaultCardsCollectionName; Cards = cards }
+        return! ctx.DataAccess.StoreCardCollection model
+    }
     |> tee (fun x ->
-        logApiResults ctx.Logger "DeleteCustomer" sw x)
+        logApiResults ctx.Logger "UpdateCardsFromAirtable" sw x)
+

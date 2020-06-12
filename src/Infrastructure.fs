@@ -17,6 +17,8 @@ type FumbleError =
     | DynamoDbDeserializationError of string * string
     | DataAccessError of string * Exception option
     | ApiRequestDeserializationError of string * string
+    | AirTableRequestError of string
+    | AirTableDeserializationError of string * string
 
 module Environment =
     let envVars = seq {

@@ -2,7 +2,10 @@ service: serverless-bighack-fumble-api
 
 plugins:
   - serverless-pseudo-parameters
-  
+
+custom:
+  airTableToken: ${env:AIRTABLE_TOKEN, ssm:/bighack-fumble-api/${self:provider.stage}/AIRTABLE_TOKEN}
+
 provider:
   name: aws
   runtime: dotnetcore3.1
@@ -31,6 +34,7 @@ provider:
     VERSION: ${env:VERSION}
     DYNAMO_REGION: ${self:provider.region}
     DYNAMO_CARDS_TABLE: ${self:provider.tables.cards}
+    AIRTABLE_TOKEN: ${self:custom.airTableToken}
 
   iamRoleStatements:
     - Effect: "Allow"
