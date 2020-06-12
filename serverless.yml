@@ -75,9 +75,10 @@ functions:
   scheduledAirtableUpdate:
     handler: BigHack.Fumble.Api::BigHack.Fumble.Api.LambdaFunctions::scheduledAirtableUpdate
     events:
-      - cloudwatchEvent:
-          name: bighack-fumble-api-${self:provider.stage}-airtable-update
-          schedule: rate(1 minutes)
+      - schedule:
+          rate: rate(1 minutes)
+          name: "bighack-fumble-api-${self:provider.stage}-airtable-update"
+          enabled: true
 
 resources:
   Resources:
